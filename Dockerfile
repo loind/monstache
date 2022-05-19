@@ -20,6 +20,9 @@ RUN make release
 
 FROM rwynn/monstache-alpine:3.15.0
 
-ENTRYPOINT ["/bin/monstache"]
-
 COPY --from=build-app /app/build/linux-amd64/monstache /bin/monstache
+
+COPY ./start_monstache.sh /usr/local/bin/start_monstache.sh
+RUN chmod +x /usr/local/bin/start_monstache.sh
+
+ENTRYPOINT ["/bin/sh", "-c", "start_monstache.sh"]
